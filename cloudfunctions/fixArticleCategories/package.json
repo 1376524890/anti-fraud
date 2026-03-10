@@ -1,0 +1,9 @@
+{
+  "name": "fixArticleCategories",
+  "version": "1.0.0",
+  "description": "修复文章分类问题",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "~2.6.3"
+  }
+}

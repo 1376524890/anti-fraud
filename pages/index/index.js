@@ -488,12 +488,24 @@ Page({
     console.log('========== 切换分类 ==========')
     console.log('选中分类：', category)
     console.log('当前分类：', this.data.selectedCategory)
+    console.log('category 类型：', typeof category)
+    console.log('category 长度：', category ? category.length : 0)
+    
+    // 去除前后空格，确保分类名称干净
+    const trimmedCategory = category ? category.trim() : '全部'
+
+    // 如果分类没有变化，不重复加载
+    if (trimmedCategory === this.data.selectedCategory) {
+      console.log('分类未变化，跳过加载')
+      return
+    }
 
     this.setData({
-      selectedCategory: category,
+      selectedCategory: trimmedCategory,
       currentPage: 1,
       articles: [],
-      hasMore: true
+      hasMore: true,
+      totalCount: 0
     })
 
     // 重新加载文章

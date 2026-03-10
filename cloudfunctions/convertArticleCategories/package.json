@@ -1,0 +1,9 @@
+{
+  "name": "convertArticleCategories",
+  "version": "1.0.0",
+  "description": "批量转换文章分类（数字转中文）",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "~2.6.3"
+  }
+}
