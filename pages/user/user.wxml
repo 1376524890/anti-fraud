@@ -1,24 +1,17 @@
-<!--
-用户管理页面 - 个人中心模块
-
-上游依赖：user.js页面逻辑，user.wxss样式文件
-入口：页面路由跳转至/pages/user/user
-主要功能：用户信息展示与编辑、签到功能、积分和成就统计、页面导航
-输出：渲染用户界面，触发JS事件处理器
-
-重要：每当所属的代码发生变化时，必须对相应的文档进行更新操作！
--->
 <!--pages/user/user.wxml-->
 <view class="user-container">
-  <!-- 用户信息头部 -->
   <view class="user-header">
-    <!-- v3：站内通知入口（右上角） -->
-    <view class="notify-entry" bindtap="openMessages">
-      <text class="notify-icon">🔔</text>
-      <view wx:if="{{unreadCount > 0}}" class="notify-dot">
-        <text class="notify-text">{{unreadCount > 99 ? '99+' : unreadCount}}</text>
+    <view class="header-topbar">
+      <view class="top-right-actions">
+        <view class="notify-entry" bindtap="openMessages">
+          <text class="notify-icon">🔔</text>
+          <view wx:if="{{unreadCount > 0}}" class="notify-dot">
+            <text class="notify-text">{{unreadCount > 99 ? '99+' : unreadCount}}</text>
+          </view>
+        </view>
       </view>
     </view>
+
     <view class="user-info">
       <button class="avatar-wrapper" open-type="chooseAvatar" bindchooseavatar="onChooseAvatar">
         <view class="user-avatar">
@@ -26,43 +19,42 @@
           <image wx:if="{{userInfo.avatarUrl}}" src="{{userInfo.avatarUrl}}" mode="aspectFill"></image>
         </view>
       </button>
+
       <view class="user-details">
         <view class="user-name-container" bindtap="openMyProfile">
           <view class="user-name">{{userInfo.nickName || '未设置昵称'}}</view>
           <text class="go-profile-icon">›</text>
         </view>
         <view class="user-uid" wx:if="{{userInfo.uid}}">UID: {{userInfo.uid}}</view>
-         <view class="user-status">{{userInfo.nickName ? '开启反诈学习之旅 ✨' : '完善信息开启反诈学习之旅 ✨'}}</view>
-          <!-- 称号展示区域 -->
-          <view class="title-display-inline" bindtap="showTitleManagement">
-            <text class="title-label-inline">当前称号:</text>
-            <view class="current-titles-inline">
-              <text wx:for="{{equippedTitles}}" wx:key="id" class="title-tag-inline">{{item.name}}</text>
-              <text wx:for="{{displayAchievements}}" wx:key="id" class="achievement-tag-inline">{{item.icon}}{{item.title}}</text>
-              <text wx:if="{{equippedTitles.length === 0 && displayAchievements.length === 0}}" class="no-title-inline">暂无称号</text>
-            </view>
+        <view class="user-status">{{userInfo.nickName ? '开启反诈学习之旅 ✨' : '完善信息开启反诈学习之旅 ✨'}}</view>
+
+        <view class="title-display-inline" bindtap="showTitleManagement">
+          <text class="title-label-inline">当前称号:</text>
+          <view class="current-titles-inline">
+            <text wx:for="{{equippedTitles}}" wx:key="id" class="title-tag-inline">{{item.name}}</text>
+            <text wx:for="{{displayAchievements}}" wx:key="id" class="achievement-tag-inline">{{item.icon}}{{item.title}}</text>
+            <text wx:if="{{equippedTitles.length === 0 && displayAchievements.length === 0}}" class="no-title-inline">暂无称号</text>
           </view>
         </view>
       </view>
+    </view>
 
-     <!-- 数据统计卡片 -->
-     <view class="user-stats">
-       <view class="stat-item">
-         <view class="stat-value">{{signDays}}</view>
-         <view class="stat-label">连续签到</view>
-       </view>
-       <view class="stat-item">
-         <view class="stat-value">{{points}}</view>
-         <view class="stat-label">我的积分</view>
-       </view>
-       <view class="stat-item">
-         <view class="stat-value">{{achievements}}</view>
-         <view class="stat-label">获得成就</view>
-       </view>
-     </view>
+    <view class="user-stats">
+      <view class="stat-item">
+        <view class="stat-value">{{signDays}}</view>
+        <view class="stat-label">连续签到</view>
+      </view>
+      <view class="stat-item">
+        <view class="stat-value">{{points}}</view>
+        <view class="stat-label">我的积分</view>
+      </view>
+      <view class="stat-item">
+        <view class="stat-value">{{achievements}}</view>
+        <view class="stat-label">获得成就</view>
+      </view>
+    </view>
   </view>
 
-  <!-- 功能菜单 -->
   <view class="user-menu">
     <view class="menu-item" bindtap="navigateTo" data-url="/pages/sign-in/sign-in">
       <view class="menu-left">
@@ -75,13 +67,15 @@
         <text class="menu-arrow">›</text>
       </view>
     </view>
+
     <view class="menu-item" bindtap="navigateTo" data-url="/pages/scam-report/scam-report">
       <view class="menu-left">
-        <text class="menu-icon">📣</text>
+        <text class="menu-icon">📝</text>
         <text class="menu-label">诈骗反馈</text>
       </view>
       <text class="menu-arrow">›</text>
     </view>
+
     <view class="menu-item" bindtap="navigateTo" data-url="/pages/achievements/achievements">
       <view class="menu-left">
         <text class="menu-icon">🏆</text>
@@ -89,6 +83,7 @@
       </view>
       <text class="menu-arrow">›</text>
     </view>
+
     <view class="menu-item" bindtap="navigateTo" data-url="/pages/points/points">
       <view class="menu-left">
         <text class="menu-icon">⭐</text>
@@ -96,16 +91,16 @@
       </view>
       <text class="menu-arrow">›</text>
     </view>
+
     <view class="menu-item" bindtap="navigateTo" data-url="/pages/learning/learning">
       <view class="menu-left">
-        <text class="menu-icon">📖</text>
+        <text class="menu-icon">📚</text>
         <text class="menu-label">学习记录</text>
       </view>
       <text class="menu-arrow">›</text>
     </view>
   </view>
 
-  <!-- 设置菜单 -->
   <view class="user-menu">
     <view class="menu-item" bindtap="navigateTo" data-url="/pages/settings/settings">
       <view class="menu-left">
@@ -114,6 +109,7 @@
       </view>
       <text class="menu-arrow">›</text>
     </view>
+
     <view class="menu-item" bindtap="navigateTo" data-url="/pages/feedback/feedback">
       <view class="menu-left">
         <text class="menu-icon">❓</text>
@@ -121,6 +117,7 @@
       </view>
       <text class="menu-arrow">›</text>
     </view>
+
     <view class="menu-item" bindtap="navigateTo" data-url="/pages/about/about">
       <view class="menu-left">
         <text class="menu-icon">ℹ️</text>
