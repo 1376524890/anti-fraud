@@ -33,7 +33,10 @@
       </view>
 
       <view class="footer">
-        <text class="count">💬 {{item.commentCount || 0}}</text>
+        <view class="right-actions">
+          <text class="comment-icon">💬</text>
+          <text class="comment-count">{{item.commentCount || 0}}</text>
+        </view>
       </view>
     </view>
 
