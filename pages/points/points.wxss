@@ -143,6 +143,9 @@
   padding: 32rpx;
   margin-bottom: 20rpx;
   box-shadow: 0 8rpx 32rpx rgba(0, 0, 0, 0.06);
+  box-sizing: border-box;
+  width: 100%;
+  overflow: hidden;
 }
 
 /* 称号兑换专区 */
@@ -264,6 +267,9 @@
 .product-content {
   flex: 1;
   min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
 }
 
 .product-name {
@@ -286,28 +292,37 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 20rpx;
+  width: 100%;
+  box-sizing: border-box;
+  flex-wrap: nowrap;
 }
 
 .product-price {
   display: flex;
   align-items: baseline;
   gap: 4rpx;
+  flex-shrink: 0;
 }
 
 .price-value {
   font-size: 32rpx;
   font-weight: 700;
   color: #f59e0b;
+  white-space: nowrap;
 }
 
 .price-unit {
   font-size: 22rpx;
   color: #f59e0b;
+  white-space: nowrap;
 }
 
 .product-stock {
   font-size: 24rpx;
   color: #10b981;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .out-of-stock {
